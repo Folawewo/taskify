@@ -1,0 +1,19 @@
+{
+  "name": "taskify",
+  "version": "1.0.0",
+  "description": "To do List API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Folawewo/taskify.git"
+  },
+  "author": "Folawewo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Folawewo/taskify/issues"
+  },
+  "homepage": "https://github.com/Folawewo/taskify#readme"
+}
