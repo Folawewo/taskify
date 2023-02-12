@@ -34,12 +34,12 @@ app.post('/todos', async (req, res) => {
 });
 
 // Update a to-do item
-app.put('/todos/:id', async (req, res) => {
-  const todo = await Todo.findByIdAndUpdate(
-    req.params.task,
+app.put('/todos/:task', async (req, res) => {
+  const todo = await Todo.findOneAndUpdate(
+    { task: req.params.task },
     {
       task: req.body.task,
-      complete: req.body.completed,
+      completed: req.body.completed,
     },
     {
       new: true,
@@ -49,9 +49,10 @@ app.put('/todos/:id', async (req, res) => {
 });
 
 // Delete a to-do item
-app.delete('/todos/:id', async (req, res) => {
-  await Todo.findByIdAndRemove(req.params.id);
-  res.json({ message: 'Todo item deleted' });
+app.delete('/todos/:task', async (req, res) => {
+  const todo = await Todo.findOneAndDelete({ task: req.params.task });
+  if (!todo) return res.status(404).send({ error: 'Todo not found' });
+  res.send(todo);
 });
 
 module.exports = app;
