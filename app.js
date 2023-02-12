@@ -15,9 +15,14 @@ app.get('/todos', async (req, res) => {
 
 // Get a to-do item
 app.get('/todos/:task', async (req, res) => {
-  const todo = await Todo.findOne({ task: req.params.task });
-  if (!todo) return res.status(404).send('Todo not found');
-  res.json(todo);
+  try {
+    const todo = await Todo.findOne({ task: req.params.task });
+    if (!todo) return res.status(404).send('Todo not found');
+    res.json(todo);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 // Add a new to-do item
