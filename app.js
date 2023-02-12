@@ -38,6 +38,10 @@ app.put('/todos/:id', async (req, res) => {
   res.json(todo);
 });
 
-
+// Delete a to-do item
+app.delete('/todos/:id', async (req, res) => {
+  await Todo.findByIdAndRemove(req.params.id);
+  res.json({ message: 'Todo item deleted' });
+});
 
 module.exports = app;
