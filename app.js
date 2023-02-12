@@ -12,4 +12,13 @@ app.get('/todos', async (req, res) => {
   res.json(todos);
 });
 
+app.post('/todos', async (req, res) => {
+  const todo = new Todo({
+    task: req.body.task,
+    completed: req.body.completed,
+  });
+  await todo.save();
+  res.json(todo);
+});
+
 module.exports = app;
