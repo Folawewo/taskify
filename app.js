@@ -13,23 +13,28 @@ app.get('/todos', async (req, res) => {
   res.json(todos);
 });
 
+// Get a to-do item
+app.get('/todos/:task', async (req, res) => {
+  const todo = await Todo.findOne({ task: req.params.task });
+  if (!todo) return res.status(404).send('Todo not found');
+  res.json(todo);
+});
+
 // Add a new to-do item
 app.post('/todos', async (req, res) => {
-  let completed = false;
-  if (req.body.completed === 'True') {
-    completed = true;
-  }
-
-  const todo = new Todo({
-    task: req.body.task,
-    completed: completed,
-  });
-
   try {
+    const todo = new Todo({
+      task: req.body.task,
+      completed: req.body.completed,
+    });
     await todo.save();
-    res.json(todo);
+    res.status(201).send(todo);
   } catch (error) {
-    res.status(400).json({ message: 'Todo validation failed', error });
+    if (error.code === 11000) {
+      res.status(400).send({ error: 'Todo already exists' });
+    } else {
+      res.status(400).send({ error: error.message });
+    }
   }
 });
 
