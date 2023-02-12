@@ -1,8 +1,15 @@
 const mongoose = require('mongoose');
 
 const todoSchema = new mongoose.Schema({
-  task: String,
-  completed: Boolean,
+  task: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  completed: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Todo = mongoose.model('Todo', todoSchema);
