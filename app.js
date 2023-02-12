@@ -15,12 +15,22 @@ app.get('/todos', async (req, res) => {
 
 // Add a new to-do item
 app.post('/todos', async (req, res) => {
+  let completed = false;
+  if (req.body.completed === 'True') {
+    completed = true;
+  }
+
   const todo = new Todo({
     task: req.body.task,
-    completed: req.body.completed,
+    completed: completed,
   });
-  await todo.save();
-  res.json(todo);
+
+  try {
+    await todo.save();
+    res.json(todo);
+  } catch (error) {
+    res.status(400).json({ message: 'Todo validation failed', error });
+  }
 });
 
 // Update a to-do item
