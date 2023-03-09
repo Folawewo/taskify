@@ -1,6 +1,6 @@
 # Taskify
 
-A to-do list API that allows users to create, read, update and delete items from a list. The API uses MongoDB to store the items and Express to create the API.
+To-do list API that allows users to create, read, update and delete items from a list. The API uses MongoDB to store the items and Express to create the API.
 
 ## Installation
 
