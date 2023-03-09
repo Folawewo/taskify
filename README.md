@@ -39,7 +39,7 @@ Deletes the item with the specified ID.
 
 If an error occurs while processing a request, the API will return an error object with a status code and a message. For example:
 
-```
+```json
 {
   "error": {
     "status": 404,
